@@ -1,6 +1,7 @@
 from src.initialization import init, init_session
 from src.validator import validate_session
 from src.summary import summary
+from src.sync import sync
 from utils.constants import COOKIES_PATH
 
 from bs4 import BeautifulSoup as bs
@@ -18,12 +19,9 @@ if __name__ == '__main__':
     if 'init' in args:
         init()
         puts(colored.green("Successfully logged in"))
-        exit(0)
-
-    if 'init-session' in args:
+    elif 'init-session' in args:
         init_session()
         puts(colored.green("Successfully logged in"))
-        exit(0)
 
     # recover previous session
     session = requests.session()
@@ -33,10 +31,9 @@ if __name__ == '__main__':
     validate_session(session)
 
     if 'status' in args:
-        if '--solved' in args:
-            summary(session, False)
-        else:
-            summary(session, True)
+        summary(session, '--solved' in args)
+    elif 'sync' in args:
+        sync(session, '--sync-samples' in args, '--sync-statements' in args)
 
     # menu = login(session)
     # print(menu)

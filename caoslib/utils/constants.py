@@ -4,6 +4,7 @@ import os
 CONFIG_PATH = os.getcwd() + '/caoslib/files/config.ini'
 COOKIES_PATH = os.getcwd() + '/caoslib/files/cookies.owo'
 LINKS_PATH = os.getcwd() + '/caoslib/files/links.json'
+CAOS_DIR = os.getenv('HOME') + '/programming/caos'
 
 # links
 SETTINGS = 'Settings'
