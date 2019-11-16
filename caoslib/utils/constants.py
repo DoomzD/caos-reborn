@@ -12,3 +12,8 @@ SUBMISSIONS = 'Submissions'
 STANDINGS = 'User standings'
 CLAR = 'Submit clar'
 CLARS = 'Clars'
+
+# submission status
+OK = 'OK'
+REVIEW = 'Pending review'
+NOT_SUBMITTED = 'Not submitted'

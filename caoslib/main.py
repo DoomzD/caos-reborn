@@ -1,7 +1,7 @@
 from src.initialization import init, init_session
 from src.validator import validate_session
 from src.summary import summary
-from utils.constants import COOKIES_PATH, LINKS_PATH, SUMMARY
+from utils.constants import COOKIES_PATH
 
 from bs4 import BeautifulSoup as bs
 
@@ -33,7 +33,10 @@ if __name__ == '__main__':
     validate_session(session)
 
     if 'status' in args:
-        summary(session)
+        if '--solved' in args:
+            summary(session, False)
+        else:
+            summary(session, True)
 
     # menu = login(session)
     # print(menu)
