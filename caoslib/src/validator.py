@@ -1,13 +1,12 @@
-from utils.constants import LINKS_PATH, SUMMARY
+from utils.constants import SUMMARY
+from utils.utils import read_links
 
 from clint.textui import puts, colored
 import json
 
 
 def validate_session(session):
-    links = {}
-    with open(LINKS_PATH, 'r') as linksfile:
-        links = json.load(linksfile)
+    links = read_links()
 
     result = session.get(links[SUMMARY])
     if 'Invalid session' in result.text:
