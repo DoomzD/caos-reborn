@@ -1,7 +1,7 @@
 import configparser
 from bs4 import BeautifulSoup as bs
 
-from src.constants import CONFIG_FILE
+from src.utils.constants import CONFIG_FILE
 
 
 def login(session):
