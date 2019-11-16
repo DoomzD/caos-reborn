@@ -1,7 +1,9 @@
+import os
+
 # important paths
-CONFIG_PATH = 'files/config.ini'
-COOKIES_PATH = 'files/cookies.owo'
-LINKS_PATH = 'files/links.json'
+CONFIG_PATH = os.getcwd() + '/caoslib/files/config.ini'
+COOKIES_PATH = os.getcwd() + '/caoslib/files/cookies.owo'
+LINKS_PATH = os.getcwd() + '/caoslib/files/links.json'
 
 # links
 SETTINGS = 'Settings'

@@ -1,5 +1,6 @@
-from caoslib.src.initialization import init, init_session
-from caoslib.utils.constants import COOKIES_PATH, LINKS_PATH, SUMMARY
+from src.initialization import init, init_session
+from src.validator import validate_session
+from utils.constants import COOKIES_PATH, LINKS_PATH, SUMMARY
 
 from bs4 import BeautifulSoup as bs
 from clint import arguments
@@ -26,9 +27,8 @@ if __name__ == '__main__':
     with open(COOKIES_PATH, 'rb') as  cookiesfile:
         session.cookies.update(pickle.load(cookiesfile))
 
-    # with open(LINKS_PATH, 'r') as linksfile:    
-    #     links = json.load(linksfile)
+    validate_session(session)
 
-    #     print(bs(session.get(links[SUMMARY]).text).prettify())
     # menu = login(session)
     # print(menu)
+    
