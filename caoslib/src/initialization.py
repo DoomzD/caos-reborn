@@ -19,6 +19,7 @@ def init():
     config['Credentials']['password'] = password
     config['Group']['group_number'] = group
 
+    open(CONFIG_PATH, 'a').close()
     with open(CONFIG_PATH, 'w') as configfile:
         config.write(configfile)
 
@@ -49,8 +50,11 @@ def init_session():
         exit(0)
 
     links = soup.find_all('a', {'class': 'menu'})[:-1]
+
+    open(LINKS_PATH, 'a').close()
     with open(LINKS_PATH, 'w') as linksfile:
         linksfile.write(json.dumps(dict(map(lambda x: (x.text, x['href']), links)), indent=2))
     
+    open(COOKIES_PATH, 'a').close()
     with open(COOKIES_PATH, 'wb') as cookiesfile:
         pickle.dump(session.cookies, cookiesfile)
