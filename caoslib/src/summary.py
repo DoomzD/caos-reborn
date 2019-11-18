@@ -12,13 +12,13 @@ def summary(session, show_solved):
     total_score = 0
     for problem in problems:
         formatted_problem = problem_template.format(
-            problem['name'] + ":", 
-            problem['status'], 
+            problem['name'] + ":",
+            problem['status'],
             problem['score']
         )
 
-        total_score += problem['score']
-        problems_solved += problem['status'] in [OK, REVIEW] 
+        total_score += int(problem['score'])
+        problems_solved += problem['status'] in [OK, REVIEW]
 
         if problem['status'] == OK and show_solved:
             with indent(4, quote='✔'):
@@ -29,7 +29,7 @@ def summary(session, show_solved):
         elif problem['status'] not in [OK, REVIEW]:
             with indent(4, quote='✖'):
                 puts(colored.red(formatted_problem))
-    
+
     puts('{:_>50}'.format(''))
     puts(colored.green(
         f'Total tasks: {len(problems)}, Solved tasks: {problems_solved}, Total score: {total_score}'
