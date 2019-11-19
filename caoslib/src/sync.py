@@ -26,6 +26,7 @@ def sync(session, sync_samples, sync_statements, target_contest='all', extension
         if num not in os.listdir(contest_dir):
             os.mkdir(task_dir)
             open(os.path.join(task_dir, 'main' + extension), 'a').close()
+            open(os.path.join(task_dir, 'generator.py'), 'a').close()
 
             os.mkdir(task_dir + '/tests')
 
