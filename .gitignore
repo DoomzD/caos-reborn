@@ -1,3 +1,4 @@
 *.ini
 *.pyc
+.vscode/
 caoslib/files
