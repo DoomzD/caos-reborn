@@ -54,15 +54,20 @@ def run_test(contest, task, test):
                 find_diff(expected_lines, resulting_lines)
                 exit(0)
 
+    os.remove('temp')
+    os.remove('a.out')
+
 
 def find_diff(expected_lines, resulting_lines):
     count = 0
     for (line, (expected, resulting)) in enumerate(zip(expected_lines, resulting_lines)):
         if expected != resulting:
-            with indent(quote=f'  Line #{line} > '):
+            with indent(quote=f'  Line #{line + 1} > '):
                 puts(colored.blue(f"Expected:  {expected}"), newline=False)
                 puts(colored.yellow(f"Resulting: {resulting}"))
             count += 1
 
         if count == 10:
-            pass
+            break
+
+    puts(colored.red(f"Resulting output saved to the 'temp' file."))
