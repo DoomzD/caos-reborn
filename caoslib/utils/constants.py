@@ -4,7 +4,7 @@ import os
 CONFIG_PATH = os.getcwd() + '/caoslib/files/config.ini'
 COOKIES_PATH = os.getcwd() + '/caoslib/files/cookies.owo'
 LINKS_PATH = os.getcwd() + '/caoslib/files/links.json'
-CAOS_DIR = os.getenv('HOME') + '/programming/hse/caos'
+CAOS_DIR = os.getenv('HOME') + '/programming/caos'
 
 # links
 SETTINGS = 'Settings'
@@ -19,4 +19,4 @@ OK = 'OK'
 REVIEW = 'Pending review'
 NOT_SUBMITTED = 'Not submitted'
 
-COMPILATION_STRING = "gcc -O2 -Wall -Werror -Wno-unused-result -std=gnu11 -lm {}"
+COMPILATION_STRING = "gcc -O2 -Wall -Werror -Wno-unused-result -std=gnu11 -lm -fsanitize=address -fsanitize=leak -fsanitize=undefined -fno-sanitize-recover {}"
