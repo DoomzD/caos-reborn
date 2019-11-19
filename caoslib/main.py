@@ -34,10 +34,13 @@ if __name__ == '__main__':
 
     validate_session(session)
 
+    flags = args.flags
     if 'status' in args:
-        summary(session, '--solved' in args)
+        summary(session, '--solved' in flags or '-s' in flags)
     elif 'sync' in args:
-        sync(session, '--sync-samples' in args, '--sync-statements' in args)
+        sync_samples = '--sync-samples' in flags or '-ssa' in flags or '--sync-all' in flags or '-sa' in flags
+        sync_statements = '--sync-statements' in flags or '-sst' in flags or '--sync-all' in flags or '-sa' in flags
+        sync(session, sync_samples, sync_statements)
     elif 'standings' in args:
         standings(session)
     elif 'test' in args:
