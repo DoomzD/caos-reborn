@@ -15,17 +15,17 @@ def sync(session, sync_samples, sync_statements, target_contest='all', extension
         if target_contest != 'all' and contest != target_contest:
             continue
 
-        contest_dir = CAOS_DIR + '/' + contest
+        contest_dir = os.path.join(CAOS_DIR, contest)
 
         if contest not in files:
             os.mkdir(contest_dir)
             files.append(contest)
 
         num = short_name[short_name.find('-') + 1:]
-        task_dir = contest_dir + '/' + num
+        task_dir = os.path.join(contest_dir, num)
         if num not in os.listdir(contest_dir):
             os.mkdir(task_dir)
-            open(task_dir + '/' + num + extension, 'a').close()
+            open(os.path.join(task_dir, 'main' + extension), 'a').close()
 
             os.mkdir(task_dir + '/tests')
 
@@ -37,7 +37,7 @@ def sync(session, sync_samples, sync_statements, target_contest='all', extension
             finish = '\nSubmit a solution\n\n'
             statement = soup.text[soup.text.find(start) + len(start) + 1: soup.text.find(finish)]
 
-            with open(task_dir + '/statement.txt', 'w') as statementfile:
+            with open(os.path.join(task_dir, 'statement.txt'), 'w') as statementfile:
                 statementfile.write(statement)
 
         if sync_samples:
@@ -48,10 +48,10 @@ def sync(session, sync_samples, sync_statements, target_contest='all', extension
                 sample_input = soup.text[soup.text.find('Input') + 6: soup.text.find('Output')]
                 sample_output = soup.text[soup.text.find('Output') + 7: soup.text.find('\nSubmit a solution\n\n')]
 
-                filein_name = task_dir + '/tests/000.dat'
+                filein_name = os.path.join(task_dir, 'tests', '000.dat')
                 open(filein_name, 'a').close()
 
-                fileout_name = task_dir + '/tests/000.ans'
+                fileout_name = os.path.join(task_dir, 'tests', '000.ans')
                 open(fileout_name, 'a').close()
 
                 with open(filein_name, 'w') as filein:
