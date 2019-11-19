@@ -6,7 +6,8 @@ import os, pathlib
 
 def test(args):
     (contest, task) = get_task_name(args)
-    tests_path = os.path.join(CAOS_DIR, contest, task, 'tests');
+    task_path = os.path.join(CAOS_DIR, contest, task);
+    tests_path = os.path.join(task_path, 'tests');
 
     tests = []
     try:
@@ -18,12 +19,19 @@ def test(args):
     inputs = filter(lambda x: x[x.find('.') + 1:] == 'dat', tests)
     inputs = map(lambda x: x[:x.find('.')], inputs)
 
+    if 'a.out' in os.listdir(os.getcwd()):
+        os.remove('a.out')
+    os.system(COMPILATION_STRING.format(os.path.join(task_path, 'main.c')))
+
     for input in inputs:
         if input + '.ans' not in tests:
             puts(colored.yellow(f"No matching output for test {input}.dat. Skip it."))
             continue
 
         run_test(contest, task, input)
+
+    os.remove('temp')
+    os.remove('a.out')
 
 
 def get_task_name(args):
@@ -39,7 +47,6 @@ def run_test(contest, task, test):
     input_path = os.path.join(task_path, 'tests', test + '.dat')
     output_path = os.path.join(task_path, 'tests', test + '.ans')
 
-    os.system(COMPILATION_STRING.format(task_path + '/main.c'))
     os.system('./a.out < {} > temp'.format(input_path))
 
     with open(output_path, 'r') as output_file:
@@ -53,9 +60,6 @@ def run_test(contest, task, test):
                 puts(colored.red(f"Test {test}: Failed!"))
                 find_diff(expected_lines, resulting_lines)
                 exit(0)
-
-    os.remove('temp')
-    os.remove('a.out')
 
 
 def find_diff(expected_lines, resulting_lines):
