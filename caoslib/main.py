@@ -1,8 +1,9 @@
 from src.initialization import init, init_session
-from src.validator import validate_session
+from src.validator import validate_cookies, validate_session
 from src.summary import summary
 from src.sync import sync
 from src.standings import standings
+from src.test import test
 from utils.constants import COOKIES_PATH
 
 from bs4 import BeautifulSoup as bs
@@ -24,6 +25,8 @@ if __name__ == '__main__':
         init_session()
         puts(colored.green("Successfully logged in"))
 
+    validate_cookies()
+
     # recover previous session
     session = requests.session()
     with open(COOKIES_PATH, 'rb') as  cookiesfile:
@@ -37,6 +40,8 @@ if __name__ == '__main__':
         sync(session, '--sync-samples' in args, '--sync-statements' in args)
     elif 'standings' in args:
         standings(session)
+    elif 'test' in args:
+        test(args)
 
     # menu = login(session)
     # print(menu)
