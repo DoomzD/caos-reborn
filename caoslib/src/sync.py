@@ -47,7 +47,8 @@ def sync(session, sync_samples, sync_statements, target_contest='all', extension
 
             if 'Input' in soup.text and 'Output' in soup.text:
                 sample_input = soup.text[soup.text.find('Input') + 6: soup.text.find('Output')]
-                sample_output = soup.text[soup.text.find('Output') + 7: soup.text.find('\nSubmit a solution\n\n')]
+                sample_output = (
+                    soup.text[soup.text.find('Output') + 7: soup.text.find('\nSubmit a solution\n\n')] + '\n')
 
                 filein_name = os.path.join(task_dir, 'tests', '000.dat')
                 open(filein_name, 'a').close()
