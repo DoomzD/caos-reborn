@@ -1,13 +1,13 @@
 from utils.constants import CAOS_DIR, COMPILATION_STRING
 
 from clint.textui import puts, colored, indent
-import os, pathlib
+import os
 
 
 def test(args):
     (contest, task) = get_task_name(args)
-    task_path = os.path.join(CAOS_DIR, contest, task);
-    tests_path = os.path.join(task_path, 'tests');
+    task_path = os.path.join(CAOS_DIR, contest, task)
+    tests_path = os.path.join(task_path, 'tests')
 
     tests = []
     try:
@@ -17,11 +17,17 @@ def test(args):
         exit(0)
 
     inputs = filter(lambda x: x[x.find('.') + 1:] == 'dat', tests)
-    inputs = map(lambda x: x[:x.find('.')], inputs)
+    inputs = list(map(lambda x: x[:x.find('.')], inputs))
+    if not inputs:
+        puts(colored.red(f"No tests found at {tests_path}"))
+        exit(0)
 
     if 'a.out' in os.listdir(os.getcwd()):
         os.remove('a.out')
     os.system(COMPILATION_STRING.format(os.path.join(task_path, 'main.c')))
+    if 'a.out' not in os.listdir(os.getcwd()):
+        puts(colored.red(f"Compilation error, aborted"))
+        exit(0)
 
     for input in inputs:
         if input + '.ans' not in tests:
