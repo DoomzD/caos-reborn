@@ -3,6 +3,7 @@ from src.validator import validate_cookies, validate_session
 from src.summary import summary
 from src.sync import sync
 from src.standings import standings
+from src.style import style
 from src.test import test
 from utils.constants import COOKIES_PATH
 
@@ -14,7 +15,6 @@ from clint.textui import puts, colored
 import logging
 import pickle, json
 import requests
-
 
 if __name__ == '__main__':
     args = arguments.Args()
@@ -29,7 +29,7 @@ if __name__ == '__main__':
 
     # recover previous session
     session = requests.session()
-    with open(COOKIES_PATH, 'rb') as  cookiesfile:
+    with open(COOKIES_PATH, 'rb') as cookiesfile:
         session.cookies.update(pickle.load(cookiesfile))
 
     validate_session(session)
@@ -45,6 +45,8 @@ if __name__ == '__main__':
         standings(session)
     elif 'test' in args:
         test(args)
+    elif 'style' in args:
+        style(args)
 
     # menu = login(session)
     # print(menu)
