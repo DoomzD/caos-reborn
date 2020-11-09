@@ -1,1 +1,1 @@
-python3 caoslib/main.py "$@"
+python3 /Users/hi_melnikov/Desktop/hse/caos/caos-reborn/caoslib/main.py "$@"
