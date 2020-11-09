@@ -18,4 +18,5 @@ def validate_session(session):
 
     result = session.get(links[SUMMARY])
     if 'Invalid session' in result.text:
-        puts(colored.red("Your session is outdated. Run './caos init-session'."))
+        return 0
+    return 1

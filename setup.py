@@ -2,8 +2,8 @@ from setuptools import setup
 import os
 
 LIB_PATH = os.path.join(os.getcwd(), 'caoslib', 'files')
-
-os.mkdir(LIB_PATH)
+if 'files' not in os.listdir(os.getcwd() + '/caoslib'):
+        os.mkdir(LIB_PATH)
 
 with open(os.getcwd() + "/caos", 'w') as bash:
     bash.write(f'python3 {os.getcwd()}/caoslib/main.py "$@"')
