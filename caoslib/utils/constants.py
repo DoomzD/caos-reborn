@@ -1,9 +1,15 @@
 import os
 
+#folder path
+def FOLDER_PATH():
+
+    with open(FOLDER_PATH + "/path.txt", 'w') as folder_constant_file:
+        folder_constant_file.write(FOLDER_PATH)
+
 # important paths
-CONFIG_PATH = os.getcwd() + '/caoslib/files/config.ini'
-COOKIES_PATH = os.getcwd() + '/caoslib/files/cookies.owo'
-LINKS_PATH = os.getcwd() + '/caoslib/files/links.json'
+CONFIG_PATH = os.getcwd() + '/config.ini'
+COOKIES_PATH = os.getcwd() + '/cookies.owo'
+LINKS_PATH = os.getcwd() + '/links.json'
 CAOS_DIR = os.getenv('HOME') + '/programming/caos'
 
 # links

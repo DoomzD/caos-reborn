@@ -12,10 +12,6 @@ def init():
     if 'files' not in os.listdir(os.getcwd() + '/caoslib'):
         os.mkdir(os.getcwd() + '/caoslib/files')
 
-    open(CONFIG_PATH, 'a').close()
-    open(COOKIES_PATH, 'a').close()
-    open(LINKS_PATH, 'a').close()
-
     login = prompt.query('Tell me your login: ')
     password = prompt.query('Tell me your password: ')
     group = prompt.query('Tell me you group number from the caos.ejudge.ru: ')
@@ -46,7 +42,7 @@ def init_session():
 
     session = requests.session()
 
-    url = 'https://caos.ejudge.ru/ej/client?contest_id=1{:02d}'.format(int(config['Group']['group_number']))
+    url = f'https://caos.ejudge.ru/ej/client?contest_id=1{int(config["Group"]["group_number"])}'
     start_page = session.post(
         url,
         data=credentials,
@@ -55,15 +51,13 @@ def init_session():
 
     soup = bs(start_page.content, 'html.parser')
     if 'Permission denied' in soup.text:
-        puts(colored.red("Invalid login or password. Run './caos init' again with correct credentials"))
+        puts(colored.red("Invalid login or password. Run './caos init-session' again with correct credentials"))
         exit(0)
 
     links = soup.find_all('a', {'class': 'menu'})[:-1]
 
-    open(LINKS_PATH, 'a').close()
     with open(LINKS_PATH, 'w') as linksfile:
         linksfile.write(json.dumps(dict(map(lambda x: (x.text, x['href']), links)), indent=2))
 
-    open(COOKIES_PATH, 'a').close()
     with open(COOKIES_PATH, 'wb') as cookiesfile:
         pickle.dump(session.cookies, cookiesfile)
