@@ -1,1 +1,2 @@
-python3 /Users/hi_melnikov/Desktop/hse/caos/caos-reborn/caoslib/initialization/../main.py "$@"
+VAR=$(python3 -c "import caoslib;print(caoslib.__file__)")
+python3 $VAR "$@"

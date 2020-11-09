@@ -1,5 +1,3 @@
-from defined.post_init import ARGS_PATH
-
 import os
 
 def init():
@@ -8,9 +6,6 @@ def init():
 
     if 'files' not in os.listdir(LIB_PATH):
             os.mkdir(FILES_PATH)
-
-    with open(LIB_PATH + "/../caos", 'w') as bash:
-        bash.write(f'python3 {LIB_PATH}/main.py "$@"')
 
     with open(FILES_PATH + "/path.txt", 'w') as lib_constant_file:
         lib_constant_file.write(FILES_PATH)
