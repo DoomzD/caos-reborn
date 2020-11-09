@@ -1,17 +1,17 @@
-from utils.web import CONFIG_PATH,
-from utils.constants import CAOS_DIR, CLANG_FORMAT_STYLE_STRING
+from defined.paths import CONFIG_PATH
+from defined.constants import CAOS_DIR, CLANG_FORMAT_STYLE_STRING
 
-from clint.textui import puts, colored, indent
 import configparser
 import os
 import shutil
+from clint.textui import puts, colored, indent
 
 
 def style(args):
     config = configparser.ConfigParser()
     config['Tools'] = {}
     config.read(CONFIG_PATH)
-
+    #no idea how this works
     if '--set-tool' in args.grouped:
         config['Tools']['clang-format'] = args.grouped['--set-tool']
         with open(CONFIG_PATH, 'w') as configfile:

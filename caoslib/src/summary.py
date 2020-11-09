@@ -1,5 +1,5 @@
-from utils.constants import SUMMARY, OK, REVIEW, NOT_SUBMITTED
-from utils.utils import get_problems
+from defined.constants import SUMMARY, OK, REVIEW, NOT_SUBMITTED
+from .utils import get_problems
 
 from bs4 import BeautifulSoup as bs
 from clint.textui import puts, colored, indent

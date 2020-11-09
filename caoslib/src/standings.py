@@ -1,5 +1,5 @@
-from utils.constants import STANDINGS
-from utils.utils import read_links
+from defined.constants import STANDINGS
+from .utils import read_links
 
 from bs4 import BeautifulSoup as bs
 from clint.textui import puts, colored
@@ -12,7 +12,7 @@ def standings(session):
     soup = bs(standings_html.content, 'html.parser')
 
     name = soup.title.text[:soup.title.text.find('[') - 1]
-    
+
     users = soup.find_all('td', {'class': 'st_team'})
     totals = soup.find_all('td', {'class': 'st_total'})
     scores = soup.find_all('td', {'class': 'st_score'})

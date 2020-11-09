@@ -1,58 +1,24 @@
-from src.initialization import init
-from src.standings import standings
-from src.style import style
-from src.test import test
-
-from bs4 import BeautifulSoup as bs
-
 from clint import arguments
 from clint.textui import puts, colored
 
-import logging
-import pickle, json
-import requests
-
+#this is far from ideal but a little more abstraction
 if __name__ == '__main__':
-    args = arguments.Args()
-    flags = args.flags
-    if 'init' in args:
-        init_project()
-        puts(colored.green("Init successful"))
-    elif 'test' in args:
-        test(args)
-    elif 'style' in args:
-        style(args)
-    else:
-        from src.web import init_session, login
-        from src.validator import validate_cookies, validate_session
-        from src.summary import summary
-        from utils.constants import COOKIES_PATH
-        from src.sync import sync
+    mode = arguments.Args()[0]
+    flags = arguments.Args().flags
 
-        if 'login' in args:
-            login()
-            puts(colored.green("Successfully saved password and logged in"))
-            init_session()
+    #project init
+    import initialization
+    if mode in initialization.options:
+        initialization.handler(mode, flags)
 
-        #need edjude for extra data
-        validate_cookies()
+    #edjudje is needed
+    import src
+    if mode in src.options:
+        src.handler(mode, flags)
 
-        # recover previous session
-        session = requests.session()
-        with open(COOKIES_PATH, 'rb') as cookiesfile:
-            session.cookies.update(pickle.load(cookiesfile))
+    #just working with material on computer
+    import tasks
+    if mode in tasks.options:
+        tasks.handler(mode, flags)
 
-        if not validate_session(session):
-            init_session()
-
-        if 'status' in args:
-            summary(session, '--solved' in flags or '-s' in flags)
-        elif 'sync' in args:
-            sync_samples = '--sync-samples' in flags or '-ssa' in flags or '--sync-all' in flags or '-sa' in flags
-            sync_statements = '--sync-statements' in flags or '-sst' in flags or '--sync-all' in flags or '-sa' in flags
-            sync(session, sync_samples, sync_statements)
-        elif 'standings' in args:
-            standings(session)
-
-    # menu = login(session)
-    # print(menu)
+    puts(colored.red(f"No valid arguments are found"))

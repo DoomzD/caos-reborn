@@ -1,5 +1,5 @@
-from utils.constants import CAOS_DIR
-from utils.utils import get_problems
+from defined.constants import CAOS_DIR
+from .utils import get_problems
 
 import os
 from bs4 import BeautifulSoup as bs
