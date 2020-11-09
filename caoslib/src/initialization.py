@@ -9,8 +9,6 @@ from clint.textui import puts, colored, prompt
 
 
 def init():
-    if 'files' not in os.listdir(os.getcwd() + '/caoslib'):
-        os.mkdir(os.getcwd() + '/caoslib/files')
 
     login = prompt.query('Tell me your login: ')
     password = prompt.query('Tell me your password: ')
