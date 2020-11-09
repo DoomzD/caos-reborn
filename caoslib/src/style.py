@@ -1,4 +1,5 @@
-import utils.constants as const
+from utils.web import CONFIG_PATH,
+from utils.constants import CAOS_DIR, CLANG_FORMAT_STYLE_STRING
 
 from clint.textui import puts, colored, indent
 import configparser
@@ -9,11 +10,11 @@ import shutil
 def style(args):
     config = configparser.ConfigParser()
     config['Tools'] = {}
-    config.read(const.CONFIG_PATH)
+    config.read(CONFIG_PATH)
 
     if '--set-tool' in args.grouped:
         config['Tools']['clang-format'] = args.grouped['--set-tool']
-        with open(const.CONFIG_PATH, 'w') as configfile:
+        with open(CONFIG_PATH, 'w') as configfile:
             config.write(configfile)
 
         puts(colored.green('clang-format tool path changed succesfully!'))
@@ -33,16 +34,16 @@ def style(args):
 
     files = []
     if '--all' in args.flags:
-        for contest in os.listdir(const.CAOS_DIR):
+        for contest in os.listdir(CAOS_DIR):
             files += [
-                os.path.join(const.CAOS_DIR, contest, task, 'main.c')
-                for task in os.listdir(os.path.join(const.CAOS_DIR, contest))
+                os.path.join(CAOS_DIR, contest, task, 'main.c')
+                for task in os.listdir(os.path.join(CAOS_DIR, contest))
             ]
     elif args.files:
         files = args.files
 
     command = (f"{tool}"
-               "-style={const.CLANG_FORMAT_STYLE_STRING}"
+               f"-style={CLANG_FORMAT_STYLE_STRING}"
                "--verbose -i"
-               "{' '.join(str(file) for file in files)}")
+               f"{' '.join(str(file) for file in files)}")
     os.system(command)

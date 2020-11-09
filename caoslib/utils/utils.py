@@ -1,4 +1,5 @@
-from utils.constants import LINKS_PATH, SUMMARY, NOT_SUBMITTED
+from utils.constants import SUMMARY, NOT_SUBMITTED
+from utils.paths import LINKS_PATH
 
 from bs4 import BeautifulSoup as bs
 import json
@@ -31,7 +32,7 @@ def get_problems(session):
         name = problem_containers[problem + 1].text
         href = problem_containers[problem + 1].a['href']
         status = NOT_SUBMITTED if problem_containers[problem + 2].text == '\xa0' else problem_containers[problem + 2].text
-        tests_passed = 0 if problem_containers[problem + 3].text == '\xa0' else problem_containers[problem + 3].text 
+        tests_passed = 0 if problem_containers[problem + 3].text == '\xa0' else problem_containers[problem + 3].text
         score = 0 if problem_containers[problem + 4].text == '\xa0' else problem_containers[problem + 4].text
 
         problems.append({

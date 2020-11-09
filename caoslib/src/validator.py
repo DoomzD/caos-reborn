@@ -1,4 +1,5 @@
-from utils.constants import COOKIES_PATH, SUMMARY
+from utils.paths import COOKIES_PATH
+from utils.constants import SUMMARY
 from utils.utils import read_links
 
 from clint.textui import puts, colored

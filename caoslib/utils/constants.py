@@ -1,8 +1,5 @@
-import os
-
-
 # tasks data path
-CAOS_DIR = os.getenv('HOME') + '/programming/caos'
+CAOS_DIR = '/Users/hi_melnikov/Desktop/hse/caos/tasks'
 
 # links
 SETTINGS = 'Settings'
@@ -35,15 +32,3 @@ CLANG_FORMAT_STYLE_STRING = """\"{
     BreakBeforeBraces: Custom,
     BraceWrapping: { AfterEnum: true, AfterStruct: true }
 }\""""
-
-#lib path
-def LIB_PATH():
-    with open(os.path.split(__file__)[0] + "/../files/path.txt", 'r') as folder_constant_file:
-        path = folder_constant_file.read()
-    return path
-
-
-#relative to lib paths
-CONFIG_PATH = LIB_PATH() + '/config.ini'
-COOKIES_PATH = LIB_PATH() + '/cookies.owo'
-LINKS_PATH = LIB_PATH() + '/links.json'

@@ -1,9 +1,7 @@
 from src.initialization import init
-from src.sync import sync
 from src.standings import standings
 from src.style import style
 from src.test import test
-from utils.constants import COOKIES_PATH
 
 from bs4 import BeautifulSoup as bs
 
@@ -28,6 +26,8 @@ if __name__ == '__main__':
         from src.web import init_session, login
         from src.validator import validate_cookies, validate_session
         from src.summary import summary
+        from utils.constants import COOKIES_PATH
+        from src.sync import sync
 
         if 'login' in args:
             login()

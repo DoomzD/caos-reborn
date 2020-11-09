@@ -1,4 +1,4 @@
-from utils.constants import CONFIG_PATH, COOKIES_PATH, LINKS_PATH
+from utils.paths import CONFIG_PATH, COOKIES_PATH, LINKS_PATH
 
 import os
 import requests
