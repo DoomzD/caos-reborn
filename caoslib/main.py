@@ -5,21 +5,20 @@ from clint.textui import puts, colored
 if __name__ == '__main__':
     mode = arguments.Args()[0]
     args = arguments.Args()
-    flags = arguments.Args().flags
 
     #project init
     import initialization
     if mode in initialization.options:
-        initialization.handler(mode)
+        initialization.handler(mode, args)
 
     #edjudje is needed
     import src
     if mode in src.options:
-        src.handler(mode, flags)
+        src.handler(mode, args)
 
     #just working with material on computer
-    import tasks
-    if mode in tasks.options:
-        tasks.handler(mode, args)
+    import offline
+    if mode in offline.options:
+        offline.handler(mode, args)
 
-    puts(colored.red(f"No valid arguments are found"))
+    puts(colored.red(f"No valid arguments were found"))

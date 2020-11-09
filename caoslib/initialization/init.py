@@ -20,7 +20,3 @@ def init():
 
     for file_name in ['cookies.owo', 'links.json', 'config.ini']:
         open(FILES_PATH + "/" + file_name, 'a').close()
-
-def set_gcc_args(args):
-    with open(ARGS_PATH, "w") as gcc_args:
-        gcc_args.write(args)

@@ -7,15 +7,16 @@ from bs4 import BeautifulSoup as bs
 options = ['login', 'status', 'sync', 'standings']
 
 #need edjude for extra data
-def handler(mode, flags):
-    from defined.paths import COOKIES_PATH
+def handler(mode, args):
+    from defined.post_init import COOKIES_PATH
     from .auth import init_session, login
     from .validator import validate_cookies, validate_session
     from .summary import summary
     from .sync import sync
     from .standings import standings
     from .style import style
-    from .test import test
+
+    flags = args.flags
 
     if mode == 'login':
         login()
