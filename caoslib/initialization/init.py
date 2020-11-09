@@ -1,3 +1,5 @@
+from defined.post_init import ARGS_PATH
+
 import os
 
 def init():
@@ -13,5 +15,12 @@ def init():
     with open(FILES_PATH + "/path.txt", 'w') as lib_constant_file:
         lib_constant_file.write(FILES_PATH)
 
-    for file_name in ['cookies.owo', '/links.json', '/config.ini']:
+    with open(FILES_PATH + "/gcc_args.txt", "w") as gcc_args:
+        gcc_args.write("-O2 -Wall -Werror -Wno-unused-result -std=gnu11 -lm -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fsanitize=leak")
+
+    for file_name in ['cookies.owo', 'links.json', 'config.ini']:
         open(FILES_PATH + "/" + file_name, 'a').close()
+
+def set_gcc_args(args):
+    with open(ARGS_PATH, "w") as gcc_args:
+        gcc_args.write(args)

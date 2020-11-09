@@ -1,4 +1,4 @@
-from defined.paths import CONFIG_PATH
+from defined.post_init import CONFIG_PATH
 from defined.constants import CAOS_DIR, CLANG_FORMAT_STYLE_STRING
 
 import configparser

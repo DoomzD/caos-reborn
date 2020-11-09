@@ -1,5 +1,5 @@
 from defined.constants import SUMMARY, NOT_SUBMITTED
-from defined.paths import LINKS_PATH
+from defined.post_init import LINKS_PATH
 
 from bs4 import BeautifulSoup as bs
 import json

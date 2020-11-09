@@ -1,4 +1,5 @@
-from defined.constants import CAOS_DIR, COMPILATION_STRING
+from defined.constants import CAOS_DIR
+from defined.post_init import GET_COMPILER
 
 from clint.textui import puts, colored, indent
 import os
@@ -24,7 +25,7 @@ def test(args):
 
     if 'a.out' in os.listdir(os.getcwd()):
         os.remove('a.out')
-    os.system(COMPILATION_STRING.format(os.path.join(task_path, 'main.c')))
+    os.system(GET_COMPILER().format(os.path.join(task_path, 'main.c')))
     if 'a.out' not in os.listdir(os.getcwd()):
         puts(colored.red(f"Compilation error, aborted"))
         exit(0)

@@ -14,7 +14,6 @@ OK = 'OK'
 REVIEW = 'Pending review'
 NOT_SUBMITTED = 'Not submitted'
 
-COMPILATION_STRING = "gcc -O2 -Wall -Werror -Wno-unused-result -std=gnu11 -lm -fsanitize=address -fsanitize=leak -fsanitize=undefined -fno-sanitize-recover {}"
 CLANG_FORMAT_STYLE_STRING = """\"{
     Language: Cpp,
     BasedOnStyle: Google,
