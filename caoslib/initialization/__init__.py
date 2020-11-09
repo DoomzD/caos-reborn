@@ -3,7 +3,7 @@ from clint.textui import puts, colored
 
 options = ['init']
 
-def handler(mode, flags):
+def handler(mode):
     init()
     puts(colored.green("Init successful"))
 

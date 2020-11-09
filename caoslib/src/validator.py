@@ -4,12 +4,12 @@ from .utils import read_links
 
 from clint.textui import puts, colored
 import json
-
+import os
 
 def validate_cookies():
-    with open(COOKIES_PATH, 'r') as cookies:
-        if cookies == "":
-            return 0
+    #just checking if not empty
+    if os.stat(COOKIES_PATH).st_size < 20:
+        return 0
     return 1
 
 def validate_session(session):

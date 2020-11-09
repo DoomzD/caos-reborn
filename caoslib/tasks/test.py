@@ -4,8 +4,7 @@ from clint.textui import puts, colored, indent
 import os
 
 
-def test(args):
-    (contest, task) = get_task_name(args)
+def test(contest, task):
     task_path = os.path.join(CAOS_DIR, contest, task)
     tests_path = os.path.join(task_path, 'tests')
 
@@ -40,14 +39,6 @@ def test(args):
     os.remove('a.out')
 
 
-def get_task_name(args):
-    grouped = args.grouped
-    if '-c' not in grouped or '-t' not in grouped or len(grouped['-c']) == 0 or len(grouped['-t']) == 0:
-        puts(colored.red("Provide both -c and -t flags for testing."))
-        exit(0)
-    return (grouped['-c'][0], grouped['-t'][0])
-
-
 def run_test(contest, task, test):
     task_path = os.path.join(CAOS_DIR, contest, task)
     input_path = os.path.join(task_path, 'tests', test + '.dat')
@@ -66,7 +57,6 @@ def run_test(contest, task, test):
                 puts(colored.red(f"Test {test}: Failed!"))
                 find_diff(expected_lines, resulting_lines)
                 exit(0)
-
 
 def find_diff(expected_lines, resulting_lines):
     count = 0

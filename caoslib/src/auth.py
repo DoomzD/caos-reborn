@@ -30,6 +30,10 @@ def init_session():
     config = configparser.ConfigParser()
     config.read(CONFIG_PATH)
 
+    if (not 'Credentials' in config) or (not 'Group' in config):
+        login()
+        config.read(CONFIG_PATH)
+
     credentials = {
         'login': config['Credentials']['login'],
         'password': config['Credentials']['password']
