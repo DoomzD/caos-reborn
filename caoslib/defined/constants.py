@@ -1,6 +1,3 @@
-# tasks data path
-CAOS_DIR = '/Users/hi_melnikov/Desktop/hse/caos/tasks'
-
 # links
 SETTINGS = 'Settings'
 SUMMARY = 'Summary'
@@ -13,6 +10,8 @@ CLARS = 'Clars'
 OK = 'OK'
 REVIEW = 'Pending review'
 NOT_SUBMITTED = 'Not submitted'
+
+gcc_string = "-O2 -Wall -Werror -Wno-unused-result -std=gnu11 -lm -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fsanitize=leak"
 
 CLANG_FORMAT_STYLE_STRING = """\"{
     Language: Cpp,

@@ -1,12 +1,15 @@
-from defined.constants import CAOS_DIR
-from defined.post_init import GET_COMPILER
+from defined.post_init import GET_COMPILER, GET_CAOS_FOLDER
 
+from .modify import set_tasks_dir
 from clint.textui import puts, colored, indent
 import os
 
 
 def test(contest, task):
-    task_path = os.path.join(CAOS_DIR, contest, task)
+    tasks_dir_path = GET_CAOS_FOLDER()
+    if tasks_dir_path == "-":
+        set_tasks_dir()
+    task_path = os.path.join(tasks_dir_path, contest, task)
     tests_path = os.path.join(task_path, 'tests')
 
     tests = []
@@ -41,7 +44,10 @@ def test(contest, task):
 
 
 def run_test(contest, task, test):
-    task_path = os.path.join(CAOS_DIR, contest, task)
+    tasks_dir_path = GET_CAOS_FOLDER()
+    if tasks_dir_path == "-":
+        set_tasks_dir()
+    task_path = os.path.join(tasks_dir_path, contest, task)
     input_path = os.path.join(task_path, 'tests', test + '.dat')
     output_path = os.path.join(task_path, 'tests', test + '.ans')
 
