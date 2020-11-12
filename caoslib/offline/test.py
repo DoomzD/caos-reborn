@@ -6,9 +6,11 @@ import os
 
 
 def test(contest, task):
+    #not best solution cause have to add if everywhere and import in a lot of places, but i dont have a better idea withour ruining of order of iimport
     tasks_dir_path = GET_CAOS_FOLDER()
     if tasks_dir_path == "-":
         set_tasks_dir()
+        tasks_dir_path = GET_CAOS_FOLDER()
     task_path = os.path.join(tasks_dir_path, contest, task)
     tests_path = os.path.join(task_path, 'tests')
 
@@ -47,6 +49,8 @@ def run_test(contest, task, test):
     tasks_dir_path = GET_CAOS_FOLDER()
     if tasks_dir_path == "-":
         set_tasks_dir()
+        tasks_dir_path = GET_CAOS_FOLDER()
+
     task_path = os.path.join(tasks_dir_path, contest, task)
     input_path = os.path.join(task_path, 'tests', test + '.dat')
     output_path = os.path.join(task_path, 'tests', test + '.ans')

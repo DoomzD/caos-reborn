@@ -1,4 +1,5 @@
-from defined.constants import CAOS_DIR
+from defined.post_init import GET_CAOS_FOLDER
+from offline.modify import set_tasks_dir
 from .utils import get_problems
 
 import os
@@ -6,7 +7,13 @@ from bs4 import BeautifulSoup as bs
 
 
 def sync(session, sync_samples, sync_statements, target_contest='all', extension='.c'):
-    files = os.listdir(CAOS_DIR)
+
+    tasks_dir_path = GET_CAOS_FOLDER()
+    if tasks_dir_path == "-":
+        set_tasks_dir()
+        tasks_dir_path = GET_CAOS_FOLDER()
+
+    files = os.listdir(tasks_dir_path)
     problems = get_problems(session)
 
     for problem in problems:
@@ -15,7 +22,7 @@ def sync(session, sync_samples, sync_statements, target_contest='all', extension
         if target_contest != 'all' and contest != target_contest:
             continue
 
-        contest_dir = os.path.join(CAOS_DIR, contest)
+        contest_dir = os.path.join(tasks_dir_path, contest)
 
         if contest not in files:
             os.mkdir(contest_dir)

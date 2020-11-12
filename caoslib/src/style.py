@@ -1,5 +1,6 @@
-from defined.post_init import CONFIG_PATH
-from defined.constants import CAOS_DIR, CLANG_FORMAT_STYLE_STRING
+from defined.post_init import CONFIG_PATH, GET_CAOS_FOLDER
+from defined.constants import CLANG_FORMAT_STYLE_STRING
+from offline.modify import set_tasks_dir
 
 import configparser
 import os
@@ -8,6 +9,10 @@ from clint.textui import puts, colored, indent
 
 
 def style(args):
+    tasks_dir_path = GET_CAOS_FOLDER()
+    if tasks_dir_path == "-":
+        set_tasks_dir()
+        tasks_dir_path = GET_CAOS_FOLDER()
     config = configparser.ConfigParser()
     config['Tools'] = {}
     config.read(CONFIG_PATH)
@@ -34,10 +39,10 @@ def style(args):
 
     files = []
     if '--all' in args.flags:
-        for contest in os.listdir(CAOS_DIR):
+        for contest in os.listdir(tasks_dir_path):
             files += [
-                os.path.join(CAOS_DIR, contest, task, 'main.c')
-                for task in os.listdir(os.path.join(CAOS_DIR, contest))
+                os.path.join(tasks_dir_path, contest, task, 'main.c')
+                for task in os.listdir(os.path.join(tasks_dir_path, contest))
             ]
     elif args.files:
         files = args.files
