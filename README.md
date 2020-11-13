@@ -36,7 +36,8 @@ $ pip3 install --upgrade caos-reborn
 ```$ caos status```
 
 и добавляем флаг `-s` или `--solved` для решённых
-![](examples/status.png)
+
+<img src="examples/status.png" alt="caos status" height="200">
 
 1. Вывести таблицу результатов. Достаточно бесполезно, но если вы уж решили совсем не заходить на caos.ejudge.ru, то лучше трекать результаты.
 
@@ -59,7 +60,8 @@ $ pip3 install --upgrade caos-reborn
 ```--sync-statements, -sst``` - Выкачать условия для каждой задачи по пути `contest/task/statement.txt`. В будущем можно будет вспомнить о чём задача, в настоящем можно лишний раз не заходить на сайт.
 
 ```--sync-all, -sa``` - Выкачать и семплы и условия. Объединяет параметры выше.
-![](examples/sync.png)
+
+<img src="examples/sync.png" alt="caos sync" height="500">
 
 5. Запустить тестилку своих тестов. Она пробегается по всем файлам из папки `tests`, компилирует код на этих входных данных и сравнивает вывод с эталонным. Для этого, конечно, сначала надо сгенерить тесты (но можно и на семпле запустить).
 
@@ -67,7 +69,8 @@ $ pip3 install --upgrade caos-reborn
 
 ```$ caos test -c sm02 -t 3```
 
-![](examples/test.png)
+
+<img src="examples/test.png" alt="caos test" height="400">
 
 Успешные тесты отмечаются ОКом, по упавшему тесту приходит инфа о первых 10ти различающихся строках.
 
