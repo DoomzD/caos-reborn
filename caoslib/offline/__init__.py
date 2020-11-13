@@ -1,10 +1,11 @@
 from clint.textui import puts, colored
 
-options = ['test', 'args', 'folder']
+options = ['test', 'args', 'folder', 'help']
 
 def handler(mode, args):
     from .test import test
     from .modify import set_gcc_args, set_tasks_dir
+    from .help import print_help
 
     if mode == 'test':
         grouped = args.grouped
@@ -16,5 +17,7 @@ def handler(mode, args):
         set_gcc_args()
     elif mode == 'folder':
         set_tasks_dir()
+    elif mode == 'help':
+        print_help()
 
     exit(0)

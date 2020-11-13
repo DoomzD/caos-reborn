@@ -4,7 +4,7 @@ import pickle, json
 import requests
 from bs4 import BeautifulSoup as bs
 
-options = ['login', 'status', 'sync', 'info']
+options = ['login', 'status', 'sync', 'info', 'style']
 
 #need edjude for extra data
 def handler(mode, args):
@@ -42,5 +42,7 @@ def handler(mode, args):
         sync(session, sync_samples, sync_statements)
     elif mode == 'info':
         standings(session)
+    elif mode == 'style':
+        style(args)
 
     exit(0)
