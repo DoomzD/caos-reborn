@@ -32,8 +32,8 @@ def test(contest, task):
         os.remove(f'{task_path}/a.out')
 
     c_file_name = c_file(os.listdir(task_path))
-    os.system(GET_COMPILER().format(os.path.join(task_path, c_file_name.replace(" ", "\ ") )))
-    if 'a.out' not in os.listdir(tests_path):
+    os.system(GET_COMPILER().format(os.path.join(task_path, c_file_name.replace(" ", "\ ") )) + f" -o {task_path}/a.out")
+    if 'a.out' not in os.listdir(task_path):
         puts(colored.red(f"Compilation error, aborted"))
         exit(0)
 
