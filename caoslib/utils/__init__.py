@@ -47,3 +47,9 @@ def get_problems(session):
         problem += 6
 
     return problems
+
+def c_file(folder):
+    for file_name in folder:
+        if file_name[-2:] == ".c":
+            return file_name
+    return 0

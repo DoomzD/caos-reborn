@@ -1,6 +1,6 @@
 from defined.post_init import COOKIES_PATH
 from defined.constants import SUMMARY
-from .utils import read_links
+from utils import read_links
 
 from clint.textui import puts, colored
 import json

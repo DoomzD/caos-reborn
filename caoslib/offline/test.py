@@ -1,6 +1,7 @@
 from defined.post_init import GET_COMPILER, GET_CAOS_FOLDER
 
 from .modify import set_tasks_dir
+from utils import c_file
 from clint.textui import puts, colored, indent
 import os
 
@@ -27,10 +28,12 @@ def test(contest, task):
         puts(colored.red(f"No tests found at {tests_path}"))
         exit(0)
 
-    if 'a.out' in os.listdir(os.getcwd()):
+    if 'a.out' in os.listdir(tests_path):
         os.remove('a.out')
-    os.system(GET_COMPILER().format(os.path.join(task_path, 'main.c')))
-    if 'a.out' not in os.listdir(os.getcwd()):
+
+    c_file_name = c_file(os.listdir(task_path))
+    os.system(GET_COMPILER().format(os.path.join(task_path, c_file_name.replace(" ", "\ "))))
+    if 'a.out' not in os.listdir(tests_path):
         puts(colored.red(f"Compilation error, aborted"))
         exit(0)
 

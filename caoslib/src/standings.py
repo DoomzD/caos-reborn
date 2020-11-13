@@ -1,5 +1,5 @@
 from defined.constants import STANDINGS
-from .utils import read_links
+from utils import read_links
 
 from bs4 import BeautifulSoup as bs
 from clint.textui import puts, colored
