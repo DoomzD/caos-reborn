@@ -43,34 +43,35 @@ def sync(session, sync_samples, sync_statements, target_contest='all', extension
 
             if 'tests' not in os.listdir(task_dir) :
                 os.mkdir(task_dir + '/tests')
-
-        if sync_statements:
+        if sync_statements or sync_samples:
             task_html = session.get(problem['href'])
-            soup = bs(task_html.content, 'html.parser')
 
-            start = f'Problem {short_name}: {problem["name"]}'
-            finish = '\nSubmit a solution\n\n'
-            statement = soup.text[soup.text.find(start) + len(start) + 1: soup.text.find(finish)]
+            if sync_statements:
+                if 'statement.txt' not in os.listdir(task_dir):
+                    soup = bs(task_html.content, 'html.parser')
 
-            with open(os.path.join(task_dir, 'statement.txt'), 'w') as statementfile:
-                statementfile.write(statement)
+                    start_text = f'Problem {short_name}: {problem["name"]}'
+                    finish = soup.text.find('Examples')
+                    if finish == -1:
+                        finish = soup.text.find('\nSubmit a solution\n\n')
+                    statement = soup.text[soup.text.find(start_text) + len(start_text) + 1: finish]
 
-        if sync_samples:
-            task_html = session.get(problem['href'])
-            soup = bs(task_html.content, 'html.parser')
+                    with open(os.path.join(task_dir, 'statement.txt'), 'w') as statementfile:
+                        statementfile.write(statement)
 
-            if 'Input' in soup.text and 'Output' in soup.text:
-                sample_input = soup.text[soup.text.find('Input') + 6: soup.text.find('Output')]
-                sample_output = (
-                    soup.text[soup.text.find('Output') + 7: soup.text.find('\nSubmit a solution\n\n')] + '\n')
+            if sync_samples:
+                soup = bs(task_html.content, 'html.parser')
 
-                filein_name = os.path.join(task_dir, 'tests', '000.dat')
-                open(filein_name, 'a').close()
+                if 'Input' in soup.text and 'Output' in soup.text:
+                    sample_input = soup.text[soup.text.find('Input') + 6: soup.text.find('Output')]
+                    sample_output = (
+                        soup.text[soup.text.find('Output') + 7: soup.text.find('\nSubmit a solution\n\n')] + '\n')
 
-                fileout_name = os.path.join(task_dir, 'tests', '000.ans')
-                open(fileout_name, 'a').close()
+                    filein_name = os.path.join(task_dir, 'tests', '000.dat')
 
-                with open(filein_name, 'w') as filein:
-                    filein.write(sample_input)
-                with open(fileout_name, 'w') as fileout:
-                    fileout.write(sample_output)
+                    fileout_name = os.path.join(task_dir, 'tests', '000.ans')
+
+                    with open(filein_name, 'w') as filein:
+                        filein.write(sample_input)
+                    with open(fileout_name, 'w') as fileout:
+                        fileout.write(sample_output)

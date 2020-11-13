@@ -1,2 +1,4 @@
+#!/bin/bash
+
 VAR=$(python3 -c "import caoslib;print(caoslib.__file__)")
 python3 $VAR "$@"
