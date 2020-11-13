@@ -39,7 +39,8 @@ def handler(mode, args):
     elif mode == 'sync':
         sync_samples = '--sync-samples' in flags or '-ssa' in flags or '--sync-all' in flags or '-sa' in flags
         sync_statements = '--sync-statements' in flags or '-sst' in flags or '--sync-all' in flags or '-sa' in flags
-        sync(session, sync_samples, sync_statements)
+        sync_other = '--sync-other' in flags or '-sso' in flags
+        sync(session, sync_samples, sync_statements, sync_other)
     elif mode == 'info':
         standings(session)
     elif mode == 'style':

@@ -1,14 +1,18 @@
 from defined.post_init import GET_CAOS_FOLDER
 from defined.generator import generator_text
+from defined.constants import sync_info
 from offline.modify import set_tasks_dir
 from utils import get_problems, c_file
 
 import os
 from bs4 import BeautifulSoup as bs
+from clint.textui import puts
 
 
-def sync(session, sync_samples, sync_statements, target_contest='all', extension='.c'):
-
+def sync(session, sync_samples, sync_statements, sync_other, target_contest='all', extension='.c'):
+    if sync_other:
+        puts(colored.red(sync_info))
+        exit(0)
     tasks_dir_path = GET_CAOS_FOLDER()
     if tasks_dir_path == "-":
         set_tasks_dir()
