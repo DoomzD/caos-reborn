@@ -28,11 +28,11 @@ def test(contest, task):
         puts(colored.red(f"No tests found at {tests_path}"))
         exit(0)
 
-    if 'a.out' in os.listdir(tests_path):
-        os.remove('a.out')
+    if 'a.out' in os.listdir(task_path):
+        os.remove(f'{task_path}/a.out')
 
     c_file_name = c_file(os.listdir(task_path))
-    os.system(GET_COMPILER().format(os.path.join(task_path, c_file_name.replace(" ", "\ "))))
+    os.system(GET_COMPILER().format(os.path.join(task_path, c_file_name.replace(" ", "\ ") )))
     if 'a.out' not in os.listdir(tests_path):
         puts(colored.red(f"Compilation error, aborted"))
         exit(0)
@@ -42,26 +42,20 @@ def test(contest, task):
             puts(colored.yellow(f"No matching output for test {input}.dat. Skip it."))
             continue
 
-        run_test(contest, task, input)
+        run_test(contest, task, input, task_path)
 
-    os.remove('temp')
-    os.remove('a.out')
+    os.remove(f'{task_path}/temp')
+    os.remove(f'{task_path}/a.out')
 
 
-def run_test(contest, task, test):
-    tasks_dir_path = GET_CAOS_FOLDER()
-    if tasks_dir_path == "-":
-        set_tasks_dir()
-        tasks_dir_path = GET_CAOS_FOLDER()
-
-    task_path = os.path.join(tasks_dir_path, contest, task)
+def run_test(contest, task, test, task_path):
     input_path = os.path.join(task_path, 'tests', test + '.dat')
     output_path = os.path.join(task_path, 'tests', test + '.ans')
 
-    os.system('./a.out < {} > temp'.format(input_path))
+    os.system(f'{task_path}/a.out < {input_path} > {task_path}/temp'.format())
 
     with open(output_path, 'r') as output_file:
-        with open('temp', 'r') as temp_file:
+        with open(f'{task_path}/temp', 'r') as temp_file:
             expected_lines = output_file.readlines()
             resulting_lines = temp_file.readlines()
 
