@@ -1,6 +1,7 @@
 from clint import arguments
 from clint.textui import puts, colored
 
+#i am thinking of removing puts/prompt.query for print/input
 #this is far from ideal but a little more abstraction
 if __name__ == '__main__':
     mode = arguments.Args()[0]

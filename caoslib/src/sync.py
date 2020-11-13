@@ -1,4 +1,5 @@
 from defined.post_init import GET_CAOS_FOLDER
+from defined.generator import generator_text
 from offline.modify import set_tasks_dir
 from .utils import get_problems
 
@@ -30,12 +31,17 @@ def sync(session, sync_samples, sync_statements, target_contest='all', extension
 
         num = short_name[short_name.find('-') + 1:]
         task_dir = os.path.join(contest_dir, num)
-        if num not in os.listdir(contest_dir):
+        if num not in os.listdir(contest_dir) :
             os.mkdir(task_dir)
-            open(os.path.join(task_dir, 'main' + extension), 'a').close()
-            open(os.path.join(task_dir, 'generator.py'), 'a').close()
+        if "main.c" not in os.listdir(contest_dir + "/" + num):
 
-            os.mkdir(task_dir + '/tests')
+            open(os.path.join(task_dir, 'main' + extension), 'a').close()
+            with open(os.path.join(task_dir, 'generator.py'), 'a') as generator:
+                if os.stat(os.path.join(task_dir, 'generator.py')).st_size < 10:
+                    generator.write(generator_text)
+
+            if 'tests' not in os.listdir(contest_dir + "/" + num) :
+                os.mkdir(task_dir + '/tests')
 
         if sync_statements:
             task_html = session.get(problem['href'])

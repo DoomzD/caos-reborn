@@ -6,11 +6,12 @@ import configparser
 import json, pickle
 from bs4 import BeautifulSoup as bs
 from clint.textui import puts, colored, prompt
+from getpass import getpass
 
 def login():
 
     login = prompt.query('Tell me your login: ')
-    password = prompt.query('Tell me your password: ')
+    password = getpass(prompt='Password: ', stream=None)
     group = prompt.query('Tell me you group number from the caos.ejudge.ru: ')
 
     config = configparser.ConfigParser()
@@ -21,7 +22,6 @@ def login():
     config['Credentials']['password'] = password
     config['Group']['group_number'] = group
 
-    open(CONFIG_PATH, 'a').close()
     with open(CONFIG_PATH, 'w') as configfile:
         config.write(configfile)
 
@@ -50,7 +50,7 @@ def init_session():
 
     soup = bs(start_page.content, 'html.parser')
     if 'Permission denied' in soup.text:
-        puts(colored.red("Invalid login or password. Run './caos init-session' again with correct credentials"))
+        puts(colored.red("Invalid login or password. Run 'caos login' again with correct credentials"))
         exit(0)
 
     links = soup.find_all('a', {'class': 'menu'})[:-1]
