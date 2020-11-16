@@ -11,7 +11,7 @@ from clint.textui import puts
 
 def sync(session, sync_samples, sync_statements, sync_other, target_contest='all', extension='.c'):
     if sync_other:
-        puts(colored.red(sync_info))
+        puts(sync_info)
         exit(0)
     tasks_dir_path = GET_CAOS_FOLDER()
     if tasks_dir_path == "-":
