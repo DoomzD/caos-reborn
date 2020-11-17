@@ -2,6 +2,9 @@
 
 CLI для кокосика.
 
+
+<img src="examples/usecase.gif" alt="caos-reborn" height="300">
+
 # Установка
  Просто выполняем 2 команды:
 
@@ -22,6 +25,8 @@ $ caos init
  3) Установить clang-format ```$ apt-get install clang-format```, ```$ yum install clang-format``` или через любой другой менеджер пакетов
 
  Но это опционально тк фичи, которые используют эти данные и так потребуют их.
+ 
+ <img src="examples/login.gif" alt="login example" height="300">
 
  Пока я нахожусь в стадии активной разработки также полезно выполнять:
 
@@ -41,7 +46,7 @@ $ pip3 install --upgrade caos-reborn
 
 ```$ caos status```
 
-<img src="examples/status.png" alt="caos status" height="200">
+<img src="examples/status.png" alt="caos status" height="300">
 
 флаг `-s` или `--solved` для только решённых
 
@@ -73,7 +78,7 @@ $ pip3 install --upgrade caos-reborn
 
 Пример простейшего генератора, который просто записывает пары, которые забили руками(но очев лучше писать что-то более осмысленное):
 
-<img src="examples/generator.png" alt="caos sync" height="300">
+<img src="examples/generator.png" alt="generator example" height="300">
 
 5. Запустить тестилку своих тестов. Она пробегается по всем файлам из папки `tests`, компилирует код на этих входных данных и сравнивает вывод с эталонным. Для этого, конечно, сначала надо сгенерить тесты (но можно и на семпле запустить).
 
