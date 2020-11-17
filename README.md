@@ -99,7 +99,7 @@ $ pip3 install --upgrade caos-reborn
 
 Чтобы команда работала нужно установить clang-format(зависит от архитектуры, так что в загрузить вместе с caos-reborn не можем):
 
-```$ apt-get install clang-format```, ```$ yum install clang-format``` или установить чреез любой другой менеджер пакетов
+```$ apt-get install clang-format```, ```$ yum install clang-format``` или установить через любой другой менеджер пакетов 
 
 Работает с `clang-format` версии 8+.
 
