@@ -11,6 +11,7 @@ def print_help():
         puts("login\t: saves login and password for caos.ejudge.ru")
         puts("info\t: outputs standings info")
         puts("status\t: your tasks status after you send them")
+        puts("\t\t -s show only ok/pending review \t\t *optional")
 
         puts(colored.yellow("tasks commands"))
         puts("test\t: tests program on your local tests")

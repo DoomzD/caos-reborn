@@ -12,7 +12,6 @@ COOKIES_PATH = FILES_PATH() + '/cookies.owo'
 LINKS_PATH = FILES_PATH() + '/links.json'
 ARGS_PATH = FILES_PATH() + '/gcc_args.txt'
 DIR_PATH = FILES_PATH() + '/tasks_dir.txt'
-FORMAT_PATH = FILES_PATH() + '/../utils/clang-format'
 
 def GET_COMPILER():
     with open(ARGS_PATH, "r") as gcc_args:

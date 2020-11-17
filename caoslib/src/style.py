@@ -1,4 +1,4 @@
-from defined.post_init import CONFIG_PATH, GET_CAOS_FOLDER, FORMAT_PATH
+from defined.post_init import CONFIG_PATH, GET_CAOS_FOLDER
 from defined.constants import CLANG_FORMAT_STYLE_STRING
 from offline.modify import set_tasks_dir
 from utils import c_file
@@ -7,6 +7,7 @@ import configparser
 import os
 import shutil
 from clint.textui import puts, colored, indent
+from shutil import which
 
 
 def style(args):
@@ -45,7 +46,13 @@ def style(args):
             ))
         exit(1)
     """
-    tool = FORMAT_PATH
+    tool = "clang-format"
+
+    if which(tool) is None:
+        puts(colored.red("clang-format is not installed!"))
+        puts("try to install it via your packet manager")
+        puts("apt-get/yum/brew/..." + colored.yellow(" install clang-format"))
+        exit(0)
 
     files = []
     if '--all' in args.flags:
