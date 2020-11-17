@@ -12,7 +12,7 @@ def login():
 
     login = prompt.query('Tell me your login: ')
     password = getpass(prompt='Password: ', stream=None)
-    group = prompt.query('Tell me you group number from the caos.ejudge.ru: ')
+    group = prompt.query('Tell me you group number from the caos.ejudge.ru (check FAQ in README): ')
 
     config = configparser.ConfigParser()
     config['Credentials'] = {}
