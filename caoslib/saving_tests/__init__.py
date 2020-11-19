@@ -1,6 +1,6 @@
 import os
 import sys
-tests_path = os.path.join(os.path.split(os.path.realpath(sys.argv[0]))[0], "..")
+tests_path = os.path.join(os.path.split(os.path.realpath(sys.argv[0]))[0], "tests")
 existing_tests = []
 test_names = list(map(lambda x: x[:x.find('.')], filter(lambda x: x[x.find('.') + 1:] == 'dat', os.listdir(tests_path))))
 
