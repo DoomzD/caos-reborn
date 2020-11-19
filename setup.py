@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name = 'caos-reborn',
-    version = '1.9.2',
+    version = '1.9.3',
     url = 'https://github.com/DoomzD/caos-reborn',
     author = 'Artem Melnikov & Alex Koryakov',
     author_email = 'melnikovam10@gmail.com',
@@ -9,4 +9,4 @@ setup(name = 'caos-reborn',
     package_data={'': ['clang-format']},
     packages = find_packages(),
     scripts = ['caos'],
-    install_requires = ['clint', 'beautifulsoup4', 'shutil', 'pickle', 'requests'])
+    install_requires = ['clint', 'beautifulsoup4', 'requests'])
