@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name = 'caos-reborn',
-    version = '1.9.3',
+    version = '1.9.5',
     url = 'https://github.com/DoomzD/caos-reborn',
     author = 'Artem Melnikov & Alex Koryakov',
     author_email = 'melnikovam10@gmail.com',

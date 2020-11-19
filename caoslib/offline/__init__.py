@@ -12,9 +12,6 @@ def handler(mode, args):
     if mode == 'test':
         before_test(args)
     elif mode == 'gen':
-        if '-c' not in grouped or '-t' not in grouped or len(grouped['-c']) == 0 or len(grouped['-t']) == 0:
-            puts(colored.red("Provide both -c and -t flags for generating"))
-            exit(0)
         run_generator()
     elif mode == 'args':
         set_gcc_args()

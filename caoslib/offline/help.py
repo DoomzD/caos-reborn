@@ -26,3 +26,4 @@ def print_help():
         puts("\t\t -ssa, --sync-samples also download first test \t\t *optional")
         puts("\t\t -sst, --sync-statements also download statements\t *optional")
         puts("\t\t -sa, --sync-all combination of previous options\t *optional")
+        puts("gen\t: literally 'python3 gen.py'")

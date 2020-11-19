@@ -1,6 +1,12 @@
 import os
 import sys
+from clint.textui import puts, colored
+
 tests_path = os.path.join(os.path.split(os.path.realpath(sys.argv[0]))[0], "tests")
+if not(os.path.exists(tests_path)):
+    puts(colored.red(f"Path {tests_path} doesn't exist."))
+    exit(0)
+
 existing_tests = []
 test_names = list(map(lambda x: x[:x.find('.')], filter(lambda x: x[x.find('.') + 1:] == 'dat', os.listdir(tests_path))))
 
