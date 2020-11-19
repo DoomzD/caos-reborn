@@ -42,11 +42,13 @@ $ pip3 install --upgrade caos-reborn
 
 ```$ caos help```
 
+<img src="examples/help.png" alt="generator example" height="300">
+
 2. Вывести список всех задач. Выполняем команду
 
 ```$ caos status```
 
-<img src="examples/status.png" alt="caos status" height="300">
+<img src="examples/status-new.png" alt="caos status" height="300">
 
 флаг `-s` или `--solved` для решённых
 
@@ -90,7 +92,7 @@ $ pip3 install --upgrade caos-reborn
 
 ```$ caos test -c sm02 -t 3```
 
-<img src="examples/test.png" alt="caos test" height="400">
+<img src="examples/test-new.png" alt="caos test" height="400">
 
 Успешные тесты отмечаются ОКом, по упавшему тесту приходит инфа о первых 10ти различающихся строках.
 
@@ -103,6 +105,8 @@ $ pip3 install --upgrade caos-reborn
 ```$ caos style --all```
 
 чтобы отформатировать все исходники, лежащие в вашей папке с контестами
+
+<img src="examples/format.png" alt="generator example" height="300">
 
 или
 
