@@ -23,3 +23,4 @@ if __name__ == '__main__':
         offline.handler(mode, args)
 
     puts(colored.red(f"No valid arguments were found"))
+    puts("Try: " + colored.yellow("caos help"))

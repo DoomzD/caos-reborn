@@ -6,6 +6,7 @@ def FILES_PATH():
         path = folder_constant_file.read()
     return path
 
+# need to move most of paths to config for good taste
 #relative to lib paths
 CONFIG_PATH = FILES_PATH() + '/config.ini'
 COOKIES_PATH = FILES_PATH() + '/cookies.owo'

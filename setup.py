@@ -9,4 +9,4 @@ setup(name = 'caos-reborn',
     package_data={'': ['clang-format']},
     packages = find_packages(),
     scripts = ['caos'],
-    install_requires = ['clint', 'beautifulsoup4'])
+    install_requires = ['clint', 'beautifulsoup4', 'shutil', 'pickle', 'requests'])

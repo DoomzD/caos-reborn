@@ -1,5 +1,4 @@
 from clint.textui import puts, colored
-import logging
 import pickle, json
 import requests
 from bs4 import BeautifulSoup as bs
