@@ -6,7 +6,7 @@ from clint.textui import puts, colored, indent
 import os
 
 
-def test(contest, task):
+def test(contest, task, debug_vals = []):
     #not best solution cause have to add if everywhere and import in a lot of places, but i dont have a better idea withour ruining of order of iimport
     tasks_dir_path = GET_CAOS_FOLDER()
     if tasks_dir_path == "-":
@@ -22,8 +22,12 @@ def test(contest, task):
         puts(colored.red(f"Path {tests_path} doesn't exist."))
         exit(0)
 
-    inputs = filter(lambda x: x[x.find('.') + 1:] == 'dat', tests)
-    inputs = list(map(lambda x: x[:x.find('.')], inputs))
+    if len(debug_vals) > 0:
+        inputs = debug_vals
+    else:
+        inputs = filter(lambda x: x[x.find('.') + 1:] == 'dat', tests)
+        inputs = list(map(lambda x: x[:x.find('.')], inputs))
+
     if not inputs:
         puts(colored.red(f"No tests found at {tests_path}"))
         exit(0)
@@ -42,13 +46,13 @@ def test(contest, task):
             puts(colored.yellow(f"No matching output for test {input}.dat. Skip it."))
             continue
 
-        run_test(contest, task, input, task_path)
+        run_test(contest, task, input, task_path, len(debug_vals) > 0)
 
     os.remove(f'{task_path}/temp')
     os.remove(f'{task_path}/a.out')
 
 
-def run_test(contest, task, test, task_path):
+def run_test(contest, task, test, task_path, debug_mode):
     input_path = os.path.join(task_path, 'tests', test + '.dat')
     output_path = os.path.join(task_path, 'tests', test + '.ans')
 
@@ -63,8 +67,16 @@ def run_test(contest, task, test, task_path):
                 puts(colored.green(f"Test {test}: OK!"))
             else:
                 puts(colored.red(f"Test {test}: Failed!"))
-                find_diff(expected_lines, resulting_lines)
-                exit(0)
+                if not(debug_mode):
+                    find_diff(expected_lines, resulting_lines)
+                    exit(0)
+                else:
+                    puts(colored.yellow("Expected:"))
+                    for line in expected_lines:
+                        print(line, end = "")
+                    puts(colored.yellow("Got output:"))
+                    for line in resulting_lines:
+                        print(line, end = "")
 
 def find_diff(expected_lines, resulting_lines):
     count = 0

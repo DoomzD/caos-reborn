@@ -12,7 +12,13 @@ def handler(mode, args):
         if '-c' not in grouped or '-t' not in grouped or len(grouped['-c']) == 0 or len(grouped['-t']) == 0:
             puts(colored.red("Provide both -c and -t flags for testing."))
             exit(0)
-        test(grouped['-c'][0], grouped['-t'][0])
+        debug_mode = []
+        if '-d' in grouped:
+            if len(grouped['-d']) == 0:
+                debug_mode = ['000']
+            else:
+                debug_mode = grouped['-d'].all
+        test(grouped['-c'][0], grouped['-t'][0], debug_mode)
     elif mode == 'args':
         set_gcc_args()
     elif mode == 'folder':
