@@ -1,27 +1,21 @@
 from clint.textui import puts, colored
+import os
 
 options = ['test', 'args', 'folder', 'help', 'gen']
 
 def handler(mode, args):
-    from .test import test
+    from .test import before_test
     from .modify import set_gcc_args, set_tasks_dir
     from .help import print_help
     from .generate import run_generator
 
     if mode == 'test':
-        grouped = args.grouped
-        if '-c' not in grouped or '-t' not in grouped or len(grouped['-c']) == 0 or len(grouped['-t']) == 0:
-            puts(colored.red("Provide both -c and -t flags for testing."))
-            exit(0)
-        debug_mode = []
-        if '-d' in grouped:
-            if len(grouped['-d']) == 0:
-                debug_mode = ['000']
-            else:
-                debug_mode = grouped['-d'].all
-        test(grouped['-c'][0], grouped['-t'][0], debug_mode)
+        before_test(args)
     elif mode == 'gen':
-        generate()
+        if '-c' not in grouped or '-t' not in grouped or len(grouped['-c']) == 0 or len(grouped['-t']) == 0:
+            puts(colored.red("Provide both -c and -t flags for generating"))
+            exit(0)
+        run_generator()
     elif mode == 'args':
         set_gcc_args()
     elif mode == 'folder':

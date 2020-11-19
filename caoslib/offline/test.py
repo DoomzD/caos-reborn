@@ -5,22 +5,44 @@ from utils import c_file
 from clint.textui import puts, colored, indent
 import os
 
+abort_text = colored.red("Start with a folder with .c file and tests folder or provide both -c and -t flags for testing")
 
-def test(contest, task, debug_vals = []):
-    #not best solution cause have to add if everywhere and import in a lot of places, but i dont have a better idea withour ruining of order of iimport
-    tasks_dir_path = GET_CAOS_FOLDER()
-    if tasks_dir_path == "-":
-        set_tasks_dir()
+def before_test(args):
+    grouped = args.grouped
+
+    debug_mode = []
+    if '-d' in grouped:
+        if len(grouped['-d']) == 0:
+            debug_mode = ['000']
+        else:
+            debug_mode = grouped['-d'].all
+
+    if '-c' not in grouped or '-t' not in grouped or len(grouped['-c']) == 0 or len(grouped['-t']) == 0:
+        task_path = os.getcwd()
+    else:
+        #not best solution cause have to add if everywhere and import in a lot of places, but i dont have a better idea withour ruining of order of iimport
         tasks_dir_path = GET_CAOS_FOLDER()
-    task_path = os.path.join(tasks_dir_path, contest, task)
-    tests_path = os.path.join(task_path, 'tests')
+        if tasks_dir_path == "-":
+            set_tasks_dir()
+            tasks_dir_path = GET_CAOS_FOLDER()
+        task_path = os.path.join(tasks_dir_path, grouped['-c'][0], grouped['-t'][0])
 
-    tests = []
-    try:
-        tests = os.listdir(tests_path)
-    except:
-        puts(colored.red(f"Path {tests_path} doesn't exist."))
+    tests_path = os.path.join(task_path, 'tests')
+    c_file_name = c_file(os.listdir(task_path))
+
+    if not(c_file_name):
+        puts(colored.red(f"No .c file found in {task_path}. ") + abort_text)
         exit(0)
+
+    if not(os.path.exists(tests_path)):
+        puts(colored.red(f"Path {tests_path} doesn't exist. ") + abort_text)
+        exit(0)
+
+    test(task_path, tests_path, c_file_name, debug_mode)
+
+def test(task_path, tests_path, c_file_name, debug_vals = []):
+
+    tests = os.listdir(tests_path)
 
     if len(debug_vals) > 0:
         inputs = debug_vals
@@ -35,7 +57,8 @@ def test(contest, task, debug_vals = []):
     if 'a.out' in os.listdir(task_path):
         os.remove(f'{task_path}/a.out')
 
-    c_file_name = c_file(os.listdir(task_path))
+
+
     os.system(GET_COMPILER().format(os.path.join(task_path, c_file_name.replace(" ", "\ ") )) + f" -o {task_path}/a.out")
     if 'a.out' not in os.listdir(task_path):
         puts(colored.red(f"Compilation error, aborted"))
@@ -46,13 +69,13 @@ def test(contest, task, debug_vals = []):
             puts(colored.yellow(f"No matching output for test {input}.dat. Skip it."))
             continue
 
-        run_test(contest, task, input, task_path, len(debug_vals) > 0)
+        run_test(input, task_path, len(debug_vals) > 0)
 
     os.remove(f'{task_path}/temp')
     os.remove(f'{task_path}/a.out')
 
 
-def run_test(contest, task, test, task_path, debug_mode):
+def run_test(test, task_path, debug_mode):
     input_path = os.path.join(task_path, 'tests', test + '.dat')
     output_path = os.path.join(task_path, 'tests', test + '.ans')
 
