@@ -26,11 +26,11 @@ def set_tasks_dir():
     tasks_dir_path = GET_CAOS_FOLDER()
     if tasks_dir_path == "-":
         puts(colored.red("folder is not chosen!"))
-        puts(colored.yellow("folder to save tasks:"))
+        puts(colored.yellow("folder to save tasks (absolute path pls):"))
     else:
         puts(colored.yellow("right now tasks structure will be generated in:"))
         puts((f"{tasks_dir_path}"))
-        puts(colored.yellow("new folder to save tasks(- to keep same):"))
+        puts(colored.yellow("new folder to save tasks (absolute path pls) (- to keep same):"))
     ans = prompt.query(">")
 
     if ans == "-":

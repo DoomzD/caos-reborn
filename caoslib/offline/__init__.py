@@ -1,11 +1,12 @@
 from clint.textui import puts, colored
 
-options = ['test', 'args', 'folder', 'help']
+options = ['test', 'args', 'folder', 'help', 'gen']
 
 def handler(mode, args):
     from .test import test
     from .modify import set_gcc_args, set_tasks_dir
     from .help import print_help
+    from .generate import run_generator
 
     if mode == 'test':
         grouped = args.grouped
@@ -19,6 +20,8 @@ def handler(mode, args):
             else:
                 debug_mode = grouped['-d'].all
         test(grouped['-c'][0], grouped['-t'][0], debug_mode)
+    elif mode == 'gen':
+        generate()
     elif mode == 'args':
         set_gcc_args()
     elif mode == 'folder':

@@ -41,8 +41,8 @@ def sync(session, sync_samples, sync_statements, sync_other, target_contest='all
         if not(c_file_name):
             c_file_name = problem["name"].replace("/", "_") + extension
             open(os.path.join(task_dir, c_file_name), 'w').close()
-            with open(os.path.join(task_dir, 'generator.py'), 'a') as generator:
-                if os.stat(os.path.join(task_dir, 'generator.py')).st_size < 10:
+            with open(os.path.join(task_dir, 'gen.py'), 'a') as generator:
+                if os.stat(os.path.join(task_dir, 'gen.py')).st_size < 10:
                     generator.write(generator_text)
 
             if 'tests' not in os.listdir(task_dir) :
