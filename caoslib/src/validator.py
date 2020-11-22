@@ -1,21 +1,21 @@
-from utils.constants import COOKIES_PATH, SUMMARY
-from utils.utils import read_links
+from defined.post_init import COOKIES_PATH
+from defined.constants import SUMMARY
+from utils import read_links
 
 from clint.textui import puts, colored
 import json
-
+import os
 
 def validate_cookies():
-    try:
-        open(COOKIES_PATH, 'r').close()
-    except:
-        puts(colored.red("No cookies found. Run './caos init-session'."))
-        exit(1)
-
+    #just checking if not empty
+    if os.stat(COOKIES_PATH).st_size < 20:
+        return 0
+    return 1
 
 def validate_session(session):
     links = read_links()
 
     result = session.get(links[SUMMARY])
     if 'Invalid session' in result.text:
-        puts(colored.red("Your session is outdated. Run './caos init-session'."))
+        return 0
+    return 1

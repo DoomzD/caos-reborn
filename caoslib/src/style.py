@@ -1,26 +1,41 @@
-import utils.constants as const
+from defined.post_init import CONFIG_PATH, GET_CAOS_FOLDER
+from defined.constants import CLANG_FORMAT_STYLE_STRING
+from offline.modify import set_tasks_dir
+from utils import c_file
 
-from clint.textui import puts, colored, indent
 import configparser
 import os
 import shutil
+from clint.textui import puts, colored, indent
+from shutil import which
 
 
 def style(args):
+    tasks_dir_path = GET_CAOS_FOLDER()
+    if tasks_dir_path == "-":
+        set_tasks_dir()
+        tasks_dir_path = GET_CAOS_FOLDER()
+
+    grouped = args.grouped
+    if ('-c' not in grouped or '-t' not in grouped or len(grouped['-c']) == 0 or len(grouped['-t']) == 0) and (not '--all' in args.flags):
+        puts(colored.red("Provide both -c and -t flags for formating or choose --all"))
+        exit(0)
+
+    #this is just getting clang-format bin and sending files there....
+    """
     config = configparser.ConfigParser()
     config['Tools'] = {}
-    config.read(const.CONFIG_PATH)
-
+    config.read(CONFIG_PATH)
     if '--set-tool' in args.grouped:
         config['Tools']['clang-format'] = args.grouped['--set-tool']
-        with open(const.CONFIG_PATH, 'w') as configfile:
+        with open(CONFIG_PATH, 'w') as configfile:
             config.write(configfile)
 
         puts(colored.green('clang-format tool path changed succesfully!'))
         exit(0)
 
     tool = args.grouped.get(
-        '-t', config['Tools'].get('clang-format',
+        '-format', config['Tools'].get('clang-format',
                                   shutil.which('clang-format')))
 
     if not tool or not os.path.exists(tool):
@@ -30,19 +45,31 @@ def style(args):
                 "Try modifying $PATH, or use one of '--set-tool' and '-t' flags."
             ))
         exit(1)
+    """
+    tool = "clang-format"
+
+    if which(tool) is None:
+        puts(colored.red("clang-format is not installed!"))
+        puts("try to install it via your packet manager")
+        puts("apt-get/yum/brew/..." + colored.yellow(" install clang-format"))
+        exit(0)
 
     files = []
     if '--all' in args.flags:
-        for contest in os.listdir(const.CAOS_DIR):
-            files += [
-                os.path.join(const.CAOS_DIR, contest, task, 'main.c')
-                for task in os.listdir(os.path.join(const.CAOS_DIR, contest))
-            ]
-    elif args.files:
-        files = args.files
+        for contest in os.listdir(tasks_dir_path):
+            for task in os.listdir(os.path.join(tasks_dir_path, contest)):
+                task_path = os.path.join(tasks_dir_path, contest, task)
+                c_file_name = c_file(os.listdir(task_path))
+                files.append(os.path.join(task_path, c_file_name.replace(" ", "\ ")))
+    else:
+        contest = grouped['-c'][0]
+        task = grouped['-t'][0]
+        task_path = os.path.join(tasks_dir_path, contest, task)
+        c_file_name = c_file(os.listdir(task_path))
+        files.append(os.path.join(task_path, c_file_name.replace(" ", "\ ")))
 
-    command = (f"{tool}"
-               "-style={const.CLANG_FORMAT_STYLE_STRING}"
-               "--verbose -i"
-               "{' '.join(str(file) for file in files)}")
+    command = (f"{tool} "
+               f"-style={CLANG_FORMAT_STYLE_STRING} "
+               "--verbose -i "
+               f"{' '.join(str(file) for file in files)}")
     os.system(command)

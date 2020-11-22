@@ -1,5 +1,5 @@
-from utils.constants import SUMMARY, OK, REVIEW, NOT_SUBMITTED
-from utils.utils import get_problems
+from defined.constants import SUMMARY, OK, REVIEW, NOT_SUBMITTED
+from utils import get_problems
 
 from bs4 import BeautifulSoup as bs
 from clint.textui import puts, colored, indent
@@ -20,13 +20,13 @@ def summary(session, show_solved):
         total_score += int(problem['score'])
         problems_solved += problem['status'] in [OK, REVIEW]
 
-        if problem['status'] == OK and show_solved:
+        if problem['status'] == OK:
             with indent(4, quote='✔'):
                 puts(colored.green(formatted_problem))
-        elif problem['status'] == REVIEW and show_solved:
+        elif problem['status'] == REVIEW:
             with indent(4, quote='?'):
                 puts(colored.yellow(formatted_problem))
-        elif problem['status'] not in [OK, REVIEW]:
+        elif problem['status'] not in [OK, REVIEW] and not(show_solved):
             with indent(4, quote='✖'):
                 puts(colored.red(formatted_problem))
 

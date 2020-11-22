@@ -1,12 +1,11 @@
-from setuptools import setup
-
+from setuptools import setup, find_packages
 
 setup(name = 'caos-reborn',
-    version = '1.0',
+    version = '1.9.5',
     url = 'https://github.com/DoomzD/caos-reborn',
-    author = 'Alex Koryakov',
-    author_email = 'avkoryakov@gmail.com',
+    author = 'Artem Melnikov & Alex Koryakov',
+    author_email = 'melnikovam10@gmail.com',
     description = 'Multifunctional tool for caos course',
-    packages = ['caoslib'],
+    packages = find_packages(),
     scripts = ['caos'],
-    install_requires = ['clint', 'beautifulsoup4'])
+    install_requires = ['clint', 'beautifulsoup4', 'requests'])
